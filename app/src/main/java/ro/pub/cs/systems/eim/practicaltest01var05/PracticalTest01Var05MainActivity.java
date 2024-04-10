@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
     Button tLeft, tRight, bLeft, bRight, center, nextActivity;
     TextView textView;
+    int nrClicks = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,13 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.text);
 
+        if(savedInstanceState != null) {
+            nrClicks = savedInstanceState.getInt("clicks");
+            Toast.makeText(this, String.valueOf(nrClicks), Toast.LENGTH_SHORT).show();
+        } else {
+            nrClicks = 0;
+        }
+
         tLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +50,8 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                     str += ", Top Left";
                     textView.setText(str);
                 }
+
+                nrClicks += 1;
             }
         });
 
@@ -54,6 +65,8 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                     str += ", Top Right";
                     textView.setText(str);
                 }
+
+                nrClicks += 1;
             }
         });
 
@@ -67,6 +80,8 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                     str += ", Center";
                     textView.setText(str);
                 }
+
+                nrClicks += 1;
             }
         });
 
@@ -80,6 +95,8 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                     str += ", Bottom Left";
                     textView.setText(str);
                 }
+
+                nrClicks += 1;
             }
         });
 
@@ -93,7 +110,19 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                     str += ", Bottom Right";
                     textView.setText(str);
                 }
+
+                nrClicks += 1;
             }
         });
+    }
+
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("clicks", nrClicks);
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        nrClicks = savedInstanceState.getInt("clicks");
+        Toast.makeText(this, String.valueOf(nrClicks), Toast.LENGTH_SHORT).show();
     }
 }
