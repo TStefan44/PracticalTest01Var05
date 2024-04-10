@@ -49,6 +49,8 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.text);
 
+        intentFilter.addAction("mesaj_thread");
+
         if(savedInstanceState != null) {
             nrClicks = savedInstanceState.getInt("clicks");
             //Toast.makeText(this, String.valueOf(nrClicks), Toast.LENGTH_SHORT).show();
