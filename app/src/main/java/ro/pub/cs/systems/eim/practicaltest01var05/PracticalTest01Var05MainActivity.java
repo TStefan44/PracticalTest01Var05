@@ -35,7 +35,7 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
         if(savedInstanceState != null) {
             nrClicks = savedInstanceState.getInt("clicks");
-            Toast.makeText(this, String.valueOf(nrClicks), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, String.valueOf(nrClicks), Toast.LENGTH_SHORT).show();
         } else {
             nrClicks = 0;
         }
@@ -114,6 +114,27 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
                 nrClicks += 1;
             }
         });
+
+        nextActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05SecondaryActivity.class);
+                intent.putExtra("str", String.valueOf(textView.getText()));
+                textView.setText("");
+                startActivityForResult(intent, 111);
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == 111) {
+            if (resultCode == 1) {
+                Toast.makeText(this, "Verify", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == 2) {
+                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     protected void onSaveInstanceState(Bundle savedInstanceState) {
